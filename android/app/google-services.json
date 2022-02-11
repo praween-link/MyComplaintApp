@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "892487457990",
+    "project_id": "fix-your-issue",
+    "storage_bucket": "fix-your-issue.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:892487457990:android:a65a20bb757af5338ecbc7",
+        "android_client_info": {
+          "package_name": "com.pkumar.link.complaintapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "892487457990-cc650t77es44vvugc84632d59skrp9fq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLXYEUSlMqpV6TobfLKeJ3SGH01n5OX9Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "892487457990-cc650t77es44vvugc84632d59skrp9fq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

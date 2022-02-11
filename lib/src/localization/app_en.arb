@@ -1,0 +1,6 @@
+{
+  "appTitle": "complaintapp",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
