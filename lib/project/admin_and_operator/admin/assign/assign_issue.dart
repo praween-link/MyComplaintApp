@@ -52,21 +52,26 @@ class _AssignToOperatorState extends State<AssignToOperator> {
                     child: Column(
                       children: [
                         Container(
-                          child: DropdownButton<String>(
-                            value: select,
-                            items: ids.map(buildMenuItem).toSet().toList(),
-                            onChanged: (value) =>
-                                setState(() => select = value),
-                            isExpanded: true,
-                            hint: const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text("Select Operator"),
+                          child: Theme(
+                            data: Theme.of(context).copyWith(
+                              canvasColor: const Color(0xFF6b5da6),
                             ),
-                            borderRadius: BorderRadius.circular(10),
+                            child: DropdownButton<String>(
+                              value: select,
+                              items: ids.map(buildMenuItem).toSet().toList(),
+                              onChanged: (value) =>
+                                  setState(() => select = value),
+                              isExpanded: true,
+                              hint: const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text("Select Operator"),
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                           ),
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: Colors.grey,
+                              color: Colors.grey.withOpacity(0.5),
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -125,11 +130,11 @@ class _AssignToOperatorState extends State<AssignToOperator> {
 
   DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
         value: item,
-        child: const Padding(
-          padding: EdgeInsets.all(15.0),
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
           child: Text(
-            'nameMap[item].toString()',
-            style: TextStyle(
+            item,
+            style: const TextStyle(
               fontSize: 15,
             ),
           ),

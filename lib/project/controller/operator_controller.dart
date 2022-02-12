@@ -2,7 +2,16 @@
 // import 'package:flutter/cupertino.dart';
 // import 'package:complaintapp/project/modle/status.dart';
 
-// class OperatorController extends ChangeNotifier {
+import 'package:complaintapp/project/models/status.dart';
+import 'package:flutter/material.dart';
+
+class OperatorController extends ChangeNotifier {
+  
+  Map<String, ComplaintStatus> issuesstatus = {};
+
+
+
+
 //   final _firestore = FirebaseFirestore.instance;
 //   //Update
 //   void UpdateStatus(ComplaintStatus cs, String id) {
@@ -24,4 +33,4 @@
 //     }).then((value) {});
 //     notifyListeners();
 //   }
-// }
+}

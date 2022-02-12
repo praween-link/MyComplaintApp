@@ -2,10 +2,12 @@ import 'package:complaintapp/project/admin_and_operator/admin/adduser/add_admin.
 import 'package:complaintapp/project/admin_and_operator/admin/adduser/add_operator.dart';
 import 'package:complaintapp/project/admin_and_operator/admin/admin_home.dart';
 import 'package:complaintapp/project/admin_and_operator/admin/profile/admin_profile.dart';
+import 'package:complaintapp/project/admin_and_operator/admin/viewuser/admin/all_admin_view_screen.dart';
 import 'package:complaintapp/project/welcome_scr/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'complaints_type/add_complaints_type.dart';
+import 'viewuser/operator/all_operator_view_screen.dart';
 
 class AdminDrawer extends StatelessWidget {
   const AdminDrawer({
@@ -61,8 +63,18 @@ class AdminDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.settings),
-            title: const Text('Operator Decoration'),
+            title: const Text('Customer Decoration'),
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> const AddComplaintType())),
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text('Admins'),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> const AllAdminViewScreen())),
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text('Operators'),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> const AlloperatorsViewScreen())),
           ),
           ListTile(
             leading: const Icon(Icons.settings),

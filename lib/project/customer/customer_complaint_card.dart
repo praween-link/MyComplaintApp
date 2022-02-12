@@ -1,5 +1,4 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:complaintapp/project/admin_and_operator/admin/adduser/add_admin.dart';
 import 'package:complaintapp/project/admin_and_operator/common/update_status.dart';
 import 'package:complaintapp/project/controller/admin_controller.dart';
 import 'package:complaintapp/project/controller/customer_controller.dart';
@@ -44,7 +43,7 @@ class CustomerComplaintCard extends StatelessWidget {
     String time = "$timeHr:$min ${hr < 12 ? 'am' : 'pm'}";
     //--
     return GestureDetector(
-      onTap: () => Navigator.push(
+      onTap: () => customerProvider.cardbutton == id ? const Text('') : Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => CustomerViewComplaint(id: id),
@@ -136,9 +135,9 @@ class CustomerComplaintCard extends StatelessWidget {
               Container(
                 height: 200,
                 width: w - 16,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.1),
+                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                   // gradient: LinearGradient(
                   //       begin: Alignment.topLeft,
                   //       end: Alignment.bottomRight,
@@ -153,14 +152,14 @@ class CustomerComplaintCard extends StatelessWidget {
                   //     ),
                   boxShadow: [
                     BoxShadow(
-                      color: Color(0xFF270980),
-                      offset: Offset(0, 0),
+                      color: Colors.grey.withOpacity(0.0),
+                      offset: const Offset(0, 0),
                       blurRadius: 0,
                       spreadRadius: 1,
                     ),
                     BoxShadow(
-                      color: Color(0xFF270980),
-                      offset: Offset(4, 5),
+                      color: Colors.grey.withOpacity(0.5),
+                      offset: const Offset(4, 5),
                       blurRadius: 8,
                       spreadRadius: 1,
                     ),
@@ -170,22 +169,36 @@ class CustomerComplaintCard extends StatelessWidget {
               Container(
                 height: 55,
                 width: w - 16,
-                decoration: const BoxDecoration(
-                  color: Color(0xFF503da6),
-                  borderRadius: BorderRadius.only(
+                decoration: BoxDecoration(
+                  color: const Color(0xFF503da6).withOpacity(0.3),
+                  borderRadius: const BorderRadius.only(
                     bottomRight: Radius.circular(150.0),
                     bottomLeft: Radius.circular(200.0),
                     topLeft: Radius.circular(50.0),
                     topRight: Radius.circular(50.0),
                   ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFF503da6).withOpacity(0.0),
+                      offset: const Offset(0, 0),
+                      blurRadius: 0,
+                      spreadRadius: 1,
+                    ),
+                    BoxShadow(
+                      color: const Color(0xFF503da6).withOpacity(0.3),
+                      offset: const Offset(4, 5),
+                      blurRadius: 8,
+                      spreadRadius: 1,
+                    ),
+                  ],
                 ),
               ),
               Container(
                 height: 54,
                 width: w - 16,
-                decoration: const BoxDecoration(
-                  color: Color(0xffcfe2e8),
-                  borderRadius: BorderRadius.only(
+                decoration: BoxDecoration(
+                  color: const Color(0xffcfe2e8).withOpacity(0.3),
+                  borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(220.0),
                     bottomRight: Radius.circular(165),
                     topLeft: Radius.circular(50.0),
@@ -199,13 +212,27 @@ class CustomerComplaintCard extends StatelessWidget {
                 child: Container(
                   height: 95,
                   width: w / 4,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFbbb4db),
-                    borderRadius: BorderRadius.only(
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFbbb4db).withOpacity(0.5),
+                    borderRadius: const BorderRadius.only(
                       bottomRight: Radius.circular(20),
                       topLeft: Radius.circular(200.0),
                       // topRight: Radius.circular(10.0),
                     ),
+                    // boxShadow: [
+                    //   BoxShadow(
+                    //     color: const Color(0xFF503da6).withOpacity(0.0),
+                    //     offset: const Offset(0, 0),
+                    //     blurRadius: 0,
+                    //     spreadRadius: 1,
+                    //   ),
+                    //   BoxShadow(
+                    //     color: const Color(0xFF503da6).withOpacity(0.3),
+                    //     offset: const Offset(4, 5),
+                    //     blurRadius: 8,
+                    //     spreadRadius: 1,
+                    //   ),
+                    // ],
                   ),
                 ),
               ),
@@ -232,10 +259,10 @@ class CustomerComplaintCard extends StatelessWidget {
                         ),
                         Container(
                           height: 40,
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFbbb4db),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFbbb4db).withOpacity(0.5),
                             borderRadius:
-                                BorderRadius.all(Radius.circular(20.0)),
+                                const BorderRadius.all(Radius.circular(20.0)),
                           ),
                           child: Center(
                               child: Padding(
@@ -314,7 +341,7 @@ class CustomerComplaintCard extends StatelessWidget {
                       height: 200,
                       width: w - 16,
                       decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.6),
+                        color: Colors.black.withOpacity(0.3),
                         borderRadius:
                             const BorderRadius.all(Radius.circular(10.0)),
                       ),

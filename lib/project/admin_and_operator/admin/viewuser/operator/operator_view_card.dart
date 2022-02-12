@@ -1,0 +1,52 @@
+import 'package:complaintapp/project/models/operator.dart';
+import 'package:flutter/material.dart';
+
+class OperatorViewCard extends StatelessWidget {
+  const OperatorViewCard({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
+
+  final Operator data;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              offset: const Offset(0, 0),
+              blurRadius: 0,
+              spreadRadius: 1,
+            ),
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              offset: const Offset(4, 5),
+              blurRadius: 8,
+              spreadRadius: 1,
+            ),
+          ],
+        ),
+        child: ListTile(
+          leading: const CircleAvatar(
+            backgroundColor: Color(0xFF755fcf),
+            radius: 28,
+            child: CircleAvatar(
+              radius: 27,
+              backgroundImage: AssetImage(
+                'assets/img/profile/p1.png',
+              ),
+            ),
+          ),
+          title: Text(data.name),
+          subtitle: Text(
+              '${data.address['state']}, ${data.address['city']}, ${data.address['area']}, ${data.address['pincode']}'),
+        ),
+      ),
+    );
+  }
+}

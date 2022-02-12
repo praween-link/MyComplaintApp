@@ -24,6 +24,13 @@ class ViewMyIssues extends StatelessWidget {
             child: Text('5', style: TextStyle(fontSize: 25),),
           ),
         ],
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(
+            Icons.chevron_left,
+            size: 35,
+          ),
+        ),
       ),
       body: customerController.CustomerIssuesListDataWidget(_auth.currentUser!.email.toString()),
     );

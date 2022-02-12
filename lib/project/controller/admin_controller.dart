@@ -1,16 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:complaintapp/project/admin_and_operator/admin/admin_home.dart';
 import 'package:complaintapp/project/admin_and_operator/admin/admin_complaint_card.dart';
-import 'package:complaintapp/project/customer/home/service_card.dart';
-import 'package:complaintapp/project/modle/issue.dart';
+import 'package:complaintapp/project/admin_and_operator/admin/viewuser/admin/admins_list_view_builder.dart';
+import 'package:complaintapp/project/admin_and_operator/admin/viewuser/operator/operator_view_card.dart';
+import 'package:complaintapp/project/admin_and_operator/admin/viewuser/operator/operators_list_view_builder.dart';
+import 'package:complaintapp/project/customer/home/home_screen/service_card.dart';
+import 'package:complaintapp/project/models/admin.dart';
+import 'package:complaintapp/project/models/issue.dart';
+import 'package:complaintapp/project/models/operator.dart';
 import 'package:flutter/material.dart';
-import 'package:complaintapp/project/modle/status.dart';
+import 'package:complaintapp/project/models/status.dart';
 
 class AdminController extends ChangeNotifier {
   Map<String, Issue> issues = {};
   Map<String, ComplaintStatus> issuesstatus = {};
   String status = 'Hello Status';
-
+//
   //
   String cardbutton = '';
   bool cardb = false;
@@ -69,7 +74,8 @@ class AdminController extends ChangeNotifier {
                   issues.addAll({data[index - 2].id: issue});
                   ComplaintStatus cs = ComplaintStatus(
                       status: data[index - 2]['status'],
-                      processStatus: boolmap, currentStatus: data[index-2]['currentStatus'],
+                      processStatus: boolmap,
+                      currentStatus: data[index - 2]['currentStatus'],
                       dates: datemap);
                   issuesstatus.addAll({data[index - 2].id: cs});
                   //-----
@@ -96,8 +102,78 @@ class AdminController extends ChangeNotifier {
     );
   }
 
-  //---------COMPLAINT TYPES------------
+  //---------Admin User------------
   final _firestore = FirebaseFirestore.instance;
+  void addNewAdmin(Admin admin) {
+    _firestore.collection('Admin').doc('users').set({}).then((value) {
+      // print();
+      _firestore.collection("Admin").doc('users').collection("Users").add({
+        "name": admin.name,
+        "phone": admin.phone,
+        "email": admin.email,
+        "password": admin.password,
+        "address": admin.address,
+        "photo": admin.photo,
+      });
+    });
+    notifyListeners();
+  }
+  getAllAdminFromDB() {
+    return StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection('Admin')
+            .doc('users')
+            .collection('Users')
+            .snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasData) {
+            var data = snapshot.data!.docs;
+            return AdminsListViewBuilder(data: data);
+          } else if (snapshot.hasError) {
+            return const Text('Something went wrong');
+          }
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        });
+  }
+
+  void addNewOperator(Operator operator) {
+    _firestore.collection('Operator').doc('users').set({}).then((value) {
+      // print();
+      _firestore.collection("Operator").doc('users').collection("Users").add({
+        "name": operator.name,
+        "phone": operator.phone,
+        "email": operator.email,
+        "password": operator.password,
+        "address": operator.address,
+        "photo": operator.photo,
+        "category": operator.category,
+      });
+    });
+    notifyListeners(); 
+  }
+  getAllOperatorFromDB() {
+    return StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection('Operator')
+            .doc('users')
+            .collection('Users')
+            .snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasData) {
+            var data = snapshot.data!.docs;
+            return OperatorsListViewBuilder(data: data);
+          } else if (snapshot.hasError) {
+            return const Text('Something went wrong');
+          }
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        });
+  }
+
+  //---------COMPLAINT TYPES------------
   void addCompalaintTypeToDB(String type) {
     _firestore.collection('Admin').doc('complainttype').set({}).then((value) {
       // print();
@@ -154,11 +230,24 @@ class AdminController extends ChangeNotifier {
         .doc(id)
         .delete();
   }
+
   deleteComplaint(String id) {
     return FirebaseFirestore.instance
         .collection('CustomerIssues')
         .doc(id)
         .delete();
   }
+
   //-------------------------------------
+  updateStatus(String id, ComplaintStatus cs) {
+    return FirebaseFirestore.instance
+        .collection('CustomerIssues')
+        .doc(id)
+        .update({
+      'status': cs.status,
+      'processStatus': cs.processStatus,
+      'currentStatus': cs.currentStatus,
+      'dates': cs.dates,
+    });
+  }
 }

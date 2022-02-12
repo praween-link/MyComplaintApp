@@ -1,5 +1,5 @@
 import 'package:complaintapp/project/controller/customer_controller.dart';
-import 'package:complaintapp/project/customer/home/customer_home.dart';
+import 'package:complaintapp/project/customer/home/home_screen/customer_home.dart';
 import 'package:complaintapp/project/customer/home/profile/customer_profile.dart';
 import 'package:complaintapp/project/customer/login/google/auth.dart';
 import 'package:complaintapp/project/welcome_scr/welcome_screen.dart';

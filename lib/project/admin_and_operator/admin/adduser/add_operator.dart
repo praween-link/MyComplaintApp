@@ -1,7 +1,11 @@
+import 'package:complaintapp/project/admin_and_operator/admin/admin_home.dart';
 import 'package:complaintapp/project/constants/decorations.dart';
-import 'package:complaintapp/project/customer/home/customer_home.dart';
+import 'package:complaintapp/project/controller/admin_controller.dart';
+import 'package:complaintapp/project/customer/home/home_screen/customer_home.dart';
+import 'package:complaintapp/project/models/operator.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:provider/provider.dart';
 
 class AddOperator extends StatefulWidget {
   static const routeName = '/addOperator';
@@ -12,20 +16,21 @@ class AddOperator extends StatefulWidget {
 }
 
 class _AddOperatorState extends State<AddOperator> {
-  TextEditingController _titleController = TextEditingController();
-
-  TextEditingController _addressController = TextEditingController();
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _phoneController = TextEditingController();
-
-  TextEditingController _descriptionController = TextEditingController();
+  String name = '';
+  String phone = '';
+  String password = '';
+  String email = '';
+  String pincode = '';
+  String state = '';
+  String city = '';
+  String area = '';
+  String category = '';
 
   final _formKey = GlobalKey<FormState>();
 
-  String category = '';
-
   @override
   Widget build(BuildContext context) {
+    var adminController = Provider.of<AdminController>(context);
     Color category_color = const Color(0xffdce0df);
     var categoryCardList = [
       ElevatedButton(
@@ -146,6 +151,7 @@ class _AddOperatorState extends State<AddOperator> {
                 ),
                 const SizedBox(height: 5),
                 TextFormField(
+                  onChanged: (value) => setState(() => name = value),
                   decoration: InputDecoration(
                     hintText: "Your name",
                     border: OutlineInputBorder(
@@ -165,6 +171,7 @@ class _AddOperatorState extends State<AddOperator> {
                 ),
                 const SizedBox(height: 5),
                 TextFormField(
+                  onChanged: (value) => setState(() => phone = value),
                   decoration: InputDecoration(
                     hintText: "Your mobile number",
                     border: OutlineInputBorder(
@@ -184,6 +191,7 @@ class _AddOperatorState extends State<AddOperator> {
                 ),
                 const SizedBox(height: 5),
                 TextFormField(
+                  onChanged: (value) => setState(() => email = value),
                   decoration: InputDecoration(
                     hintText: "Your email number",
                     border: OutlineInputBorder(
@@ -197,6 +205,7 @@ class _AddOperatorState extends State<AddOperator> {
                 ),
                 const SizedBox(height: 5),
                 TextFormField(
+                  onChanged: (value) => setState(() => password = value),
                   decoration: InputDecoration(
                     hintText: "Create password",
                     border: OutlineInputBorder(
@@ -214,21 +223,71 @@ class _AddOperatorState extends State<AddOperator> {
                   "Address*",
                   style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
                 ),
-                const SizedBox(height: 5),
+                const SizedBox(height: 10),
                 TextFormField(
+                  onChanged: (value) => setState(() => pincode = value),
                   decoration: InputDecoration(
-                    hintText: "Your address",
+                    hintText: "Pincode*",
+                    label: const Text("Pincode*"),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0)),
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return "Address cannot be empty";
+                      return "Cannot be empty!";
                     }
                     return null;
                   },
                 ),
                 const SizedBox(height: 10),
+                TextFormField(
+                  onChanged: (value) => setState(() => state = value),
+                  decoration: InputDecoration(
+                    hintText: "State*",
+                    label: const Text("State*"),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Cannot be empty!";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 10),
+                TextFormField(
+                  onChanged: (value) => setState(() => city = value),
+                  decoration: InputDecoration(
+                    hintText: "City*",
+                    label: const Text("City*"),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Cannot be empty!";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 10),
+                TextFormField(
+                  onChanged: (value) => setState(() => area = value),
+                  decoration: InputDecoration(
+                    hintText: "Area, Colony, Road Name*",
+                    label: const Text("Area, Colony, Road Name*"),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Cannot be empty!";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
                 const Text(
                   "Category*",
                   style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
@@ -236,9 +295,26 @@ class _AddOperatorState extends State<AddOperator> {
                 const SizedBox(height: 5),
                 Wrap(children: categoryCardList),
                 const SizedBox(height: 30),
+                Text(
+                    '$name, $phone, $email, $password, $pincode, $state, $city, $area, $category',),
+                
                 GestureDetector(
                   onTap: () {
                     if (_formKey.currentState!.validate() && category != '') {
+                      Map<String, String> address = {
+                        'pincode': pincode,
+                        'state': state,
+                        'city': city,
+                        'area': area
+                      };
+                      Operator operator = Operator(
+                          name: name,
+                          phone: phone,
+                          password: password,
+                          email: email,
+                          address: address,
+                          photo: '', category: category);
+                      adminController.addNewOperator(operator);
                       AwesomeDialog(
                               context: context,
                               animType: AnimType.SCALE,
@@ -248,7 +324,7 @@ class _AddOperatorState extends State<AddOperator> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: const [
                                     Text(
-                                      'Submitted Successfully',
+                                      'Add Successfully',
                                       style: TextStyle(
                                         color: Colors.green,
                                         fontSize: 25,
@@ -257,24 +333,18 @@ class _AddOperatorState extends State<AddOperator> {
                                     ),
                                     SizedBox(height: 8),
                                     Text(
-                                      'Thank You!',
+                                      'Add new operator successfully!',
                                       style: TextStyle(
                                         color: Colors.green,
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w300,
                                       ),
-                                    ),
-                                    SizedBox(height: 8),
-                                    Text(
-                                      "We've received your submission, and we'll be in toush soon!",
-                                      style: TextStyle(fontSize: 16),
-                                      textAlign: TextAlign.center,
                                     ),
                                   ],
                                 ),
                               ),
                               btnOkOnPress: () => Navigator.pushNamed(
-                                  context, CustomerHome.routeName),
+                                  context, AdminHomeScreen.routeName),
                               btnOkText: 'Back to home')
                           .show();
                     }

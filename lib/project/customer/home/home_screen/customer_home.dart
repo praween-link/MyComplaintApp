@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 // import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:provider/provider.dart';
 
-import '../customer_drawer.dart';
+import '../../customer_drawer.dart';
 
 FirebaseAuth _auth = FirebaseAuth.instance;
 

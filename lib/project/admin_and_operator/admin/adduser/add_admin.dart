@@ -1,7 +1,10 @@
+import 'package:complaintapp/project/admin_and_operator/admin/admin_home.dart';
 import 'package:complaintapp/project/constants/decorations.dart';
-import 'package:complaintapp/project/customer/home/customer_home.dart';
+import 'package:complaintapp/project/controller/admin_controller.dart';
+import 'package:complaintapp/project/models/admin.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:provider/provider.dart';
 
 class AddAdmin extends StatefulWidget {
   static const routeName = '/addAdmin';
@@ -12,18 +15,20 @@ class AddAdmin extends StatefulWidget {
 }
 
 class _AddAdminState extends State<AddAdmin> {
-  TextEditingController _titleController = TextEditingController();
-
-  TextEditingController _addressController = TextEditingController();
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _phoneController = TextEditingController();
-
-  TextEditingController _descriptionController = TextEditingController();
+  String name = '';
+  String phone = '';
+  String password = '';
+  String email = '';
+  String pincode = '';
+  String state = '';
+  String city = '';
+  String area = '';
 
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    var adminController = Provider.of<AdminController>(context);
     Color category_color = const Color(0xffdce0df);
     return Scaffold(
       appBar: AppBar(
@@ -51,6 +56,7 @@ class _AddAdminState extends State<AddAdmin> {
                 ),
                 const SizedBox(height: 5),
                 TextFormField(
+                  onChanged: (value) => setState(() => name = value),
                   decoration: InputDecoration(
                     hintText: "Your name",
                     border: OutlineInputBorder(
@@ -70,6 +76,7 @@ class _AddAdminState extends State<AddAdmin> {
                 ),
                 const SizedBox(height: 5),
                 TextFormField(
+                  onChanged: (value) => setState(() => phone = value),
                   decoration: InputDecoration(
                     hintText: "Your mobile number",
                     border: OutlineInputBorder(
@@ -89,6 +96,7 @@ class _AddAdminState extends State<AddAdmin> {
                 ),
                 const SizedBox(height: 5),
                 TextFormField(
+                  onChanged: (value) => setState(() => email = value),
                   decoration: InputDecoration(
                     hintText: "Your email number",
                     border: OutlineInputBorder(
@@ -102,6 +110,7 @@ class _AddAdminState extends State<AddAdmin> {
                 ),
                 const SizedBox(height: 5),
                 TextFormField(
+                  onChanged: (value) => setState(() => password = value),
                   decoration: InputDecoration(
                     hintText: "Create password",
                     border: OutlineInputBorder(
@@ -119,24 +128,90 @@ class _AddAdminState extends State<AddAdmin> {
                   "Address*",
                   style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
                 ),
-                const SizedBox(height: 5),
+                const SizedBox(height: 10),
                 TextFormField(
+                  onChanged: (value) => setState(() => pincode = value),
                   decoration: InputDecoration(
-                    hintText: "Your address",
+                    hintText: "Pincode*",
+                    label: const Text("Pincode*"),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0)),
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return "Address cannot be empty";
+                      return "Cannot be empty!";
                     }
                     return null;
                   },
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 10),
+                TextFormField(
+                  onChanged: (value) => setState(() => state = value),
+                  decoration: InputDecoration(
+                    hintText: "State*",
+                    label: const Text("State*"),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Cannot be empty!";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 10),
+                TextFormField(
+                  onChanged: (value) => setState(() => city = value),
+                  decoration: InputDecoration(
+                    hintText: "City*",
+                    label: const Text("City*"),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Cannot be empty!";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 10),
+                TextFormField(
+                  onChanged: (value) => setState(() => area = value),
+                  decoration: InputDecoration(
+                    hintText: "Area, Colony, Road Name*",
+                    label: const Text("Area, Colony, Road Name*"),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Cannot be empty!";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+                // Text(
+                //     '$name, $phone, $email, $password, $pincode, $state, $city, $area'),
                 GestureDetector(
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
+                      Map<String, String> address = {
+                        'pincode': pincode,
+                        'state': state,
+                        'city': city,
+                        'area': area
+                      };
+                      Admin admin = Admin(
+                          name: name,
+                          phone: phone,
+                          password: password,
+                          email: email,
+                          address: address,
+                          photo: '');
+                      adminController.addNewAdmin(admin);
                       AwesomeDialog(
                               context: context,
                               animType: AnimType.SCALE,
@@ -172,7 +247,7 @@ class _AddAdminState extends State<AddAdmin> {
                                 ),
                               ),
                               btnOkOnPress: () => Navigator.pushNamed(
-                                  context, CustomerHome.routeName),
+                                  context, AdminHomeScreen.routeName),
                               btnOkText: 'Back to home')
                           .show();
                     }

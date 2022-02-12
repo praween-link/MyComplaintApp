@@ -18,10 +18,10 @@ class CustomerViewComplaint extends StatelessWidget {
     var customerProvider = Provider.of<CustomerController>(context);
     status = customerProvider.issuesstatus[id]!.status; //new.pending.process.completed
     String processStatus = customerProvider.issuesstatus[id]!.currentStatus; // recorded, assigned, traveling, done
-    String statusRecordedDate = '18/02/2021 04:09pm';
-    String statusAssignedDate = '19/02/2021 01:32pm';
-    String statusTravelingDate = '19/02/2021 09:52pm';
-    String statusDoneDate = '22/02/2021 04:30pm';
+    // String statusRecordedDate = '18/02/2021 04:09pm';
+    // String statusAssignedDate = '19/02/2021 01:32pm';
+    // String statusTravelingDate = '19/02/2021 09:52pm';
+    // String statusDoneDate = '22/02/2021 04:30pm';
 
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
@@ -35,12 +35,12 @@ class CustomerViewComplaint extends StatelessWidget {
         title: const Text('View'),
         backgroundColor: const Color(0xFF614ac2),
         elevation: 15,
-        leading: Builder(
-          builder: (BuildContext context) => GestureDetector(
-            child: Image.asset('assets/img/menu_icon.png'),
-            onTap: () => Scaffold.of(context).openDrawer(),
-          ),
-        ),
+        leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(
+              Icons.chevron_left,
+              size: 35,
+            ),),
       ),
       // backgroundColor: Colors.blueGrey[200],
       body: SingleChildScrollView(
@@ -185,7 +185,7 @@ class CustomerViewComplaint extends StatelessWidget {
                                   fontSize: 18,
                                 ),
                               ),
-                              status == 'new'
+                              status == 'new'//
                                   ? Text(
                                       status,
                                       style: TextStyle(

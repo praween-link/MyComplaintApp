@@ -1,5 +1,5 @@
 import 'package:complaintapp/project/constants/decorations.dart';
-import 'package:complaintapp/project/customer/home/customer_home.dart';
+import 'package:complaintapp/project/customer/home/home_screen/customer_home.dart';
 import 'package:complaintapp/project/customer/login/google/auth.dart';
 import 'package:flutter/material.dart';
 

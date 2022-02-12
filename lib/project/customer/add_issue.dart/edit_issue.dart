@@ -1,7 +1,7 @@
 import 'package:complaintapp/project/admin_and_operator/admin/admin_home.dart';
 import 'package:complaintapp/project/constants/decorations.dart';
 import 'package:complaintapp/project/controller/customer_controller.dart';
-import 'package:complaintapp/project/modle/issue.dart';
+import 'package:complaintapp/project/models/issue.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';

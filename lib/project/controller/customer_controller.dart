@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:complaintapp/project/customer/customer_all_complaint_count.dart';
 import 'package:complaintapp/project/customer/customer_complaint_card.dart';
-import 'package:complaintapp/project/customer/home/service_card.dart';
-import 'package:complaintapp/project/modle/issue.dart';
+import 'package:complaintapp/project/customer/home/home_screen/grid_view_builder.dart';
+import 'package:complaintapp/project/customer/home/home_screen/service_card.dart';
+import 'package:complaintapp/project/models/issue.dart';
 import 'package:flutter/material.dart';
-import 'package:complaintapp/project/modle/status.dart';
+import 'package:complaintapp/project/models/status.dart';
 
 class CustomerController extends ChangeNotifier {
   var mytitle = '';
@@ -184,28 +185,7 @@ class CustomerController extends ChangeNotifier {
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasData) {
             var data = snapshot.data!.docs;
-            return Padding(
-              padding: const EdgeInsets.only(top: 58.0),
-              child: GridView.builder(
-                  itemCount: data.length + 2,
-                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200,
-                    // childAspectRatio: 3 / 1,
-                    // crossAxisSpacing: 20,
-                    // mainAxisSpacing: 20,
-                  ),
-                  itemBuilder: (BuildContext context, int index) {
-                    return index == 0 || index == 1
-                        ? const Text('')
-                        : Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: ServiceCard(
-                                usertype: 'customer',
-                                id: data[index - 2].id,
-                                title: data[index - 2]['type']),
-                          );
-                  }),
-            );
+            return CustomerGridViewBuilderComplaintTypes(data: data);
           } else if (snapshot.hasError) {
             return const Text('Something went wrong');
           }

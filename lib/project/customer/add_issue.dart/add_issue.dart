@@ -1,8 +1,8 @@
 import 'package:complaintapp/project/constants/decorations.dart';
 import 'package:complaintapp/project/controller/customer_controller.dart';
-import 'package:complaintapp/project/customer/home/customer_home.dart';
-import 'package:complaintapp/project/modle/issue.dart';
-import 'package:complaintapp/project/modle/status.dart';
+import 'package:complaintapp/project/customer/home/home_screen/customer_home.dart';
+import 'package:complaintapp/project/models/issue.dart';
+import 'package:complaintapp/project/models/status.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';

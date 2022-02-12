@@ -1,8 +1,9 @@
-import 'package:complaintapp/project/admin_and_operator/admin/adduser/add_admin.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:complaintapp/project/admin_and_operator/admin/assign/assign_issue.dart';
 import 'package:complaintapp/project/admin_and_operator/admin/view/view_complaint.dart';
+import 'package:complaintapp/project/admin_and_operator/common/update_status.dart';
+import 'package:complaintapp/project/constants/methods.dart';
 import 'package:complaintapp/project/controller/admin_controller.dart';
-import 'package:complaintapp/project/customer/add_issue.dart/edit_issue.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,37 +18,37 @@ class AdminComplaintCard extends StatelessWidget {
 
   final String id;
   final String usertype;
+  //
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<AdminController>(context);
+    var adminProvider = Provider.of<AdminController>(context);
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     String address =
-        '${provider.issues[id]!.state}, ${provider.issues[id]!.city}, ${provider.issues[id]!.area}, ${provider.issues[id]!.pincode}';
+        '${adminProvider.issues[id]!.state}, ${adminProvider.issues[id]!.city}, ${adminProvider.issues[id]!.area}, ${adminProvider.issues[id]!.pincode}';
     // address = address.length < 30
     //     ? address
     //     : '${address.substring(0, address.length - (address.length - 35))}...';
     //--
-    String date = provider.issues[id]!.datetime.toString().substring(0, 11);
-    int hr =
-        int.parse(provider.issues[id]!.datetime.toString().substring(11, 13));
-    int min =
-        int.parse(provider.issues[id]!.datetime.toString().substring(14, 16));
-    int timeHr = hr == 0
-        ? 12
-        : hr > 12
-            ? hr - 12
-            : hr;
-    String time = "$timeHr:$min ${hr < 12 ? 'am' : 'pm'}";
+    String date =
+        adminProvider.issues[id]!.datetime.toString().substring(0, 11);
+    int hr = int.parse(
+        adminProvider.issues[id]!.datetime.toString().substring(11, 13));
+    int min = int.parse(
+        adminProvider.issues[id]!.datetime.toString().substring(14, 16));
+    String time = timeFormat(hr, min);
     //--
     return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ViewComplaint(id: id),
-        ),
-      ),
-      child: SizedBox(//
+      onTap: () => adminProvider.cardbutton == id
+          ? const Text('')
+          : Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ViewComplaint(id: id),
+              ),
+            ),
+      child: SizedBox(
+        //
         height: 200,
         width: w,
         child: Padding(
@@ -57,19 +58,19 @@ class AdminComplaintCard extends StatelessWidget {
               Container(
                 height: 200,
                 width: w - 16,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.1),
+                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                   boxShadow: [
                     BoxShadow(
-                      color: Color(0xFF270980),
-                      offset: Offset(0, 0),
+                      color: Colors.grey.withOpacity(0.0),
+                      offset: const Offset(0, 0),
                       blurRadius: 0,
                       spreadRadius: 1,
                     ),
                     BoxShadow(
-                      color: Color(0xFF270980),
-                      offset: Offset(4, 5),
+                      color: Colors.grey.withOpacity(0.5),
+                      offset: const Offset(4, 5),
                       blurRadius: 8,
                       spreadRadius: 1,
                     ),
@@ -79,22 +80,36 @@ class AdminComplaintCard extends StatelessWidget {
               Container(
                 height: 55,
                 width: w - 16,
-                decoration: const BoxDecoration(
-                  color: Color(0xFF503da6),
-                  borderRadius: BorderRadius.only(
+                decoration: BoxDecoration(
+                  color: const Color(0xFF503da6).withOpacity(0.3),
+                  borderRadius: const BorderRadius.only(
                     bottomRight: Radius.circular(150.0),
                     bottomLeft: Radius.circular(200.0),
                     topLeft: Radius.circular(50.0),
                     topRight: Radius.circular(50.0),
                   ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFF503da6).withOpacity(0.0),
+                      offset: const Offset(0, 0),
+                      blurRadius: 0,
+                      spreadRadius: 1,
+                    ),
+                    BoxShadow(
+                      color: const Color(0xFF503da6).withOpacity(0.3),
+                      offset: const Offset(4, 5),
+                      blurRadius: 8,
+                      spreadRadius: 1,
+                    ),
+                  ],
                 ),
               ),
               Container(
                 height: 54,
                 width: w - 16,
-                decoration: const BoxDecoration(
-                  color: Color(0xffcfe2e8),
-                  borderRadius: BorderRadius.only(
+                decoration: BoxDecoration(
+                  color: const Color(0xffcfe2e8).withOpacity(0.3),
+                  borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(220.0),
                     bottomRight: Radius.circular(165),
                     topLeft: Radius.circular(50.0),
@@ -108,13 +123,27 @@ class AdminComplaintCard extends StatelessWidget {
                 child: Container(
                   height: 95,
                   width: w / 4,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFbbb4db),
-                    borderRadius: BorderRadius.only(
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFbbb4db).withOpacity(0.5),
+                    borderRadius: const BorderRadius.only(
                       bottomRight: Radius.circular(20),
                       topLeft: Radius.circular(200.0),
                       // topRight: Radius.circular(10.0),
                     ),
+                    // boxShadow: [
+                    //   BoxShadow(
+                    //     color: const Color(0xFF503da6).withOpacity(0.0),
+                    //     offset: const Offset(0, 0),
+                    //     blurRadius: 0,
+                    //     spreadRadius: 1,
+                    //   ),
+                    //   BoxShadow(
+                    //     color: const Color(0xFF503da6).withOpacity(0.3),
+                    //     offset: const Offset(4, 5),
+                    //     blurRadius: 8,
+                    //     spreadRadius: 1,
+                    //   ),
+                    // ],
                   ),
                 ),
               ),
@@ -131,7 +160,7 @@ class AdminComplaintCard extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(left: 18.0),
                           child: Text(
-                            provider.issuesstatus[id]!.status,
+                            adminProvider.issuesstatus[id]!.status,
                             style: const TextStyle(
                               color: Color(0xff050229),
                               fontSize: 18.0,
@@ -141,10 +170,10 @@ class AdminComplaintCard extends StatelessWidget {
                         ),
                         Container(
                           height: 40,
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFbbb4db),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFbbb4db).withOpacity(0.5),
                             borderRadius:
-                                BorderRadius.all(Radius.circular(20.0)),
+                                const BorderRadius.all(Radius.circular(20.0)),
                           ),
                           child: Center(
                               child: Padding(
@@ -158,7 +187,7 @@ class AdminComplaintCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 18.0),
                       child: Text(
-                        "Type:  ${provider.issues[id]!.type}",
+                        "Type:  ${adminProvider.issues[id]!.type}",
                         style: const TextStyle(
                           color: Color(0xff050229),
                           fontWeight: FontWeight.w400,
@@ -169,7 +198,7 @@ class AdminComplaintCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 18.0),
                       child: Text(
-                        "Category:  ${provider.issues[id]!.category}",
+                        "Category:  ${adminProvider.issues[id]!.category}",
                         style: const TextStyle(
                           color: Color(0xff050229),
                           fontWeight: FontWeight.w400,
@@ -180,7 +209,7 @@ class AdminComplaintCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 18.0),
                       child: Text(
-                        "Title:  ${provider.issues[id]!.title}",
+                        "Title:  ${adminProvider.issues[id]!.title}",
                         style: const TextStyle(
                           color: Color(0xff050229),
                           fontWeight: FontWeight.w400,
@@ -191,7 +220,7 @@ class AdminComplaintCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 18.0, right: 10),
                       child: Container(
-                        width: w-140,
+                        width: w - 140,
                         child: Text(
                           "☛  $address",
                           style: const TextStyle(
@@ -218,12 +247,12 @@ class AdminComplaintCard extends StatelessWidget {
               //     ),
               //   ),
               // ),
-              provider.cardbutton == id
+              adminProvider.cardbutton == id
                   ? Container(
                       height: 200,
                       width: w - 16,
                       decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.6),
+                        color: Colors.black.withOpacity(0.3),
                         borderRadius:
                             const BorderRadius.all(Radius.circular(10.0)),
                       ),
@@ -237,19 +266,104 @@ class AdminComplaintCard extends StatelessWidget {
                 child: GestureDetector(
                   child: CircleAvatar(
                     backgroundColor: const Color(0xFF503da6),
-                    child: Icon(
-                        provider.cardbutton == id ? Icons.close : Icons.add),
+                    child: Icon(adminProvider.cardbutton == id
+                        ? Icons.close
+                        : Icons.add),
                   ),
-                  onTap: () => provider.changeCardButton(id),
+                  onTap: () => adminProvider.changeCardButton(id),
                 ),
               ),
-              provider.cardbutton == id
+              adminProvider.cardbutton == id
                   ? Positioned(
                       bottom: 5,
                       right: w / 5.4,
                       child: GestureDetector(
-                        onTap: () =>
-                            Navigator.pushNamed(context, AddAdmin.routeName),
+                        onTap: () {
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: Column(
+                                children: [
+                                  ListTile(
+                                    onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ViewComplaint(id: id),
+                                      ),
+                                    ),
+                                    title: const Text("View Status"),
+                                    trailing: const Icon(Icons.pending_actions),
+                                  ),
+                                  ListTile(
+                                    onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            UpdateStatus(id: id),
+                                      ),
+                                    ),
+                                    title: const Text("Update status"),
+                                    trailing: const Icon(Icons.update),
+                                  ),
+                                  ListTile(
+                                    onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            AdminEditIssue(id: id),
+                                      ),
+                                    ),
+                                    title: const Text("Edit"),
+                                    trailing: const Icon(Icons.edit),
+                                  ),
+                                  ListTile(
+                                    onTap: () => AwesomeDialog(
+                                      context: context,
+                                      animType: AnimType.SCALE,
+                                      dialogType: DialogType.WARNING,
+                                      body: Center(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: const [
+                                            Text(
+                                              'Delete!',
+                                              style: TextStyle(
+                                                color: Colors.red,
+                                                fontSize: 25,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            SizedBox(height: 8),
+                                            Text(
+                                              'Are you sure to delete this complaint!',
+                                              style: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      btnCancelOnPress: () {},
+                                      btnCancelText: 'NO',
+                                      btnOkOnPress: () {
+                                        adminProvider.deleteComplaint(id);
+                                        Navigator.pop(context);
+                                      },
+                                      btnOkText: 'YES',
+                                    ).show(),
+                                    title: const Text("Delete"),
+                                    trailing: const Icon(Icons.delete),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
                         child: const CircleAvatar(
                           backgroundColor: Color(0xFF503da6),
                           child: Icon(Icons.add_circle_outline_outlined),
@@ -257,7 +371,7 @@ class AdminComplaintCard extends StatelessWidget {
                       ),
                     )
                   : const Text(''),
-              provider.cardbutton == id
+              adminProvider.cardbutton == id
                   ? Positioned(
                       bottom: 50,
                       right: w / 7.5,
@@ -275,7 +389,7 @@ class AdminComplaintCard extends StatelessWidget {
                       ),
                     )
                   : const Text(''),
-              provider.cardbutton == id
+              adminProvider.cardbutton == id
                   ? Positioned(
                       bottom: 73,
                       right: 5,

@@ -9,9 +9,10 @@ import 'package:complaintapp/project/admin_and_operator/common/login_screen.dart
 import 'package:complaintapp/project/admin_and_operator/common/update_status.dart';
 import 'package:complaintapp/project/controller/admin_controller.dart';
 import 'package:complaintapp/project/controller/customer_controller.dart';
+import 'package:complaintapp/project/controller/operator_controller.dart';
 import 'package:complaintapp/project/customer/add_issue.dart/add_issue.dart';
 import 'package:complaintapp/project/customer/add_issue.dart/edit_issue.dart';
-import 'package:complaintapp/project/customer/home/customer_home.dart';
+import 'package:complaintapp/project/customer/home/home_screen/customer_home.dart';
 import 'package:complaintapp/project/customer/home/profile/customer_profile.dart';
 import 'package:complaintapp/project/customer/login/customer_sign.dart';
 import 'package:complaintapp/project/customer/view_data.dart/my_all_issues.dart';
@@ -51,6 +52,9 @@ class MyApp extends StatelessWidget {
             ),
             ChangeNotifierProvider<AdminController>(
               create: (context) => AdminController(),
+            ),
+            ChangeNotifierProvider<OperatorController>(
+              create: (context) => OperatorController(),
             ),
           ],
           child: MaterialApp(
@@ -130,7 +134,7 @@ class MyApp extends StatelessWidget {
                     case AdminEditIssue.routeName:
                       return const AdminEditIssue(id: '');
                     case UpdateStatus.routeName:
-                      return const UpdateStatus();
+                      return const UpdateStatus(id: '');
                     default:
                       return Welcome();
                   }
