@@ -22,8 +22,16 @@ class CustomerProfile extends StatelessWidget {
     var bgimage = const NetworkImage(
         'https://image.newyork.com.au/wp-content/uploads/2020/05/New-York-Skyline-Zoom.jpg');
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF614ac2),
+        title: const Text(
+          'Profile',
+          // style: TextStyle(
+          //   color: const Color(0xFF614ac2).withOpacity(0.8),
+          // ),
+        ),
+        // backgroundColor: const Color(0xFF614ac2),
+        backgroundColor: Colors.transparent,
         elevation: 15,
         leading: Builder(
           builder: (BuildContext context) => GestureDetector(
@@ -41,7 +49,7 @@ class CustomerProfile extends StatelessWidget {
             children: [
               ClipPath(
                 child: Container(
-                  height: 205,
+                  height: 255,
                   width: w,
                   child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
@@ -94,7 +102,7 @@ class CustomerProfile extends StatelessWidget {
               ),
               ClipPath(
                 child: Container(
-                  height: 210,
+                  height: 240,
                   width: w,
                   decoration: const BoxDecoration(
                     color: Color(0xFF270980),
@@ -106,7 +114,7 @@ class CustomerProfile extends StatelessWidget {
               ),
               ClipPath(
                 child: Container(
-                  height: 210,
+                  height: 240,
                   width: w,
                   decoration: BoxDecoration(
                     image: DecorationImage(
@@ -152,14 +160,15 @@ class CustomerProfile extends StatelessWidget {
               Positioned(
                 bottom: 0,
                 left: 15,
-                child: CircularImage(imgurl: _auth.currentUser!.photoURL.toString()),
+                child: CircularImage(
+                    imgurl: _auth.currentUser!.photoURL.toString()),
               ),
               //
             ],
           ),
           //
           Positioned(
-            top: 230,
+            top: 270,
             left: 18,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

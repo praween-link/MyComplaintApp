@@ -1,8 +1,11 @@
 import 'package:complaintapp/project/admin_and_operator/common/login_screen.dart';
 import 'package:complaintapp/project/constants/decorations.dart';
+import 'package:complaintapp/project/controller/login_controller.dart';
+import 'package:complaintapp/project/controller/operator_controller.dart';
 import 'package:complaintapp/project/customer/login/customer_sign.dart';
 import 'package:complaintapp/project/welcome_scr/clipper_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Welcome extends StatelessWidget {
   static const routeName = '/welcome';
@@ -12,6 +15,7 @@ class Welcome extends StatelessWidget {
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
+    var loginProvider = Provider.of<LoginController>(context, listen: false);
     return Scaffold(
       body: Stack(
         children: [
@@ -22,10 +26,11 @@ class Welcome extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               GestureDetector(
-                onTap: () => Navigator.pushNamed(context, CustomerLogin.routeName),
+                onTap: () =>
+                    Navigator.pushNamed(context, CustomerLogin.routeName),
                 child: Padding(
-                  padding:
-                      const EdgeInsets.only(left: 28.0, right: 28.0, bottom: 10),
+                  padding: const EdgeInsets.only(
+                      left: 28.0, right: 28.0, bottom: 10),
                   child: Container(
                     height: 80,
                     child: const Center(
@@ -38,7 +43,7 @@ class Welcome extends StatelessWidget {
                         ),
                       ),
                     ),
-                    decoration: welcomeBoxDecoration1,
+                    decoration: welcomeButtonDecoration1,
                   ),
                 ),
               ),
@@ -46,12 +51,17 @@ class Welcome extends StatelessWidget {
                 padding:
                     const EdgeInsets.only(left: 28.0, right: 28.0, top: 10),
                 child: GestureDetector(
-                  onTap: () => Navigator.pushNamed(context, AdminAndOperatorLogin.routeName),
+                  onTap: () {
+                    loginProvider.getphoneno();
+                    loginProvider.getadminphoneno();
+                    Navigator.pushNamed(
+                        context, AdminAndOperatorLogin.routeName);
+                  },
                   child: Container(
                     height: 80,
                     child: const Center(
                       child: Text(
-                        'data',
+                        'Service',
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w900,
@@ -59,7 +69,7 @@ class Welcome extends StatelessWidget {
                         ),
                       ),
                     ),
-                    decoration: welcomeBoxDecoration2,
+                    decoration: welcomeButtonDecoration2,
                   ),
                 ),
               ),

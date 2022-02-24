@@ -1,7 +1,7 @@
 import 'package:complaintapp/project/admin_and_operator/admin/admin_home.dart';
 import 'package:complaintapp/project/constants/decorations.dart';
 import 'package:complaintapp/project/controller/admin_controller.dart';
-import 'package:complaintapp/project/customer/home/home_screen/customer_home.dart';
+import 'package:complaintapp/project/controller/operator_controller.dart';
 import 'package:complaintapp/project/models/operator.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -30,7 +30,7 @@ class _AddOperatorState extends State<AddOperator> {
 
   @override
   Widget build(BuildContext context) {
-    var adminController = Provider.of<AdminController>(context);
+    var operatorController = Provider.of<OperatorController>(context);
     Color category_color = const Color(0xffdce0df);
     var categoryCardList = [
       ElevatedButton(
@@ -314,7 +314,7 @@ class _AddOperatorState extends State<AddOperator> {
                           email: email,
                           address: address,
                           photo: '', category: category);
-                      adminController.addNewOperator(operator);
+                      operatorController.addNewOperator(operator);
                       AwesomeDialog(
                               context: context,
                               animType: AnimType.SCALE,

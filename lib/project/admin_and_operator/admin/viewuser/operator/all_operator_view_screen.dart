@@ -1,4 +1,4 @@
-import 'package:complaintapp/project/controller/admin_controller.dart';
+import 'package:complaintapp/project/controller/operator_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -7,7 +7,7 @@ class AlloperatorsViewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var adminController = Provider.of<AdminController>(context);
+    var operatorController = Provider.of<OperatorController>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('All Operators'),
@@ -20,7 +20,7 @@ class AlloperatorsViewScreen extends StatelessWidget {
         ),
       ),
       body: Container(
-        child: adminController.getAllOperatorFromDB(),
+        child: operatorController.getAllOperatorFromDB(),
       ),
     );
   }

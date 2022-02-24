@@ -1,20 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:complaintapp/project/admin_and_operator/admin/admin_home.dart';
 import 'package:complaintapp/project/admin_and_operator/admin/admin_complaint_card.dart';
+import 'package:complaintapp/project/admin_and_operator/admin/complaints_type/gradient_builder.dart';
 import 'package:complaintapp/project/admin_and_operator/admin/viewuser/admin/admins_list_view_builder.dart';
-import 'package:complaintapp/project/admin_and_operator/admin/viewuser/operator/operator_view_card.dart';
-import 'package:complaintapp/project/admin_and_operator/admin/viewuser/operator/operators_list_view_builder.dart';
-import 'package:complaintapp/project/customer/home/home_screen/service_card.dart';
 import 'package:complaintapp/project/models/admin.dart';
 import 'package:complaintapp/project/models/issue.dart';
-import 'package:complaintapp/project/models/operator.dart';
 import 'package:flutter/material.dart';
 import 'package:complaintapp/project/models/status.dart';
 
 class AdminController extends ChangeNotifier {
+  Map<String, Admin> adminsData = {};
+  List<String> adminPhoneNo = [];
   Map<String, Issue> issues = {};
   Map<String, ComplaintStatus> issuesstatus = {};
   String status = 'Hello Status';
+
 //
   //
   String cardbutton = '';
@@ -118,6 +118,13 @@ class AdminController extends ChangeNotifier {
     });
     notifyListeners();
   }
+
+  void addAdminToMap(String id, Admin admin, String phone) {
+    adminsData.addAll({id: admin});
+    adminPhoneNo.add(phone);
+    notifyListeners();
+  }
+
   getAllAdminFromDB() {
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
@@ -128,42 +135,9 @@ class AdminController extends ChangeNotifier {
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasData) {
             var data = snapshot.data!.docs;
+            adminsData = {};
+            adminPhoneNo = [];
             return AdminsListViewBuilder(data: data);
-          } else if (snapshot.hasError) {
-            return const Text('Something went wrong');
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        });
-  }
-
-  void addNewOperator(Operator operator) {
-    _firestore.collection('Operator').doc('users').set({}).then((value) {
-      // print();
-      _firestore.collection("Operator").doc('users').collection("Users").add({
-        "name": operator.name,
-        "phone": operator.phone,
-        "email": operator.email,
-        "password": operator.password,
-        "address": operator.address,
-        "photo": operator.photo,
-        "category": operator.category,
-      });
-    });
-    notifyListeners(); 
-  }
-  getAllOperatorFromDB() {
-    return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('Operator')
-            .doc('users')
-            .collection('Users')
-            .snapshots(),
-        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasData) {
-            var data = snapshot.data!.docs;
-            return OperatorsListViewBuilder(data: data);
           } else if (snapshot.hasError) {
             return const Text('Something went wrong');
           }
@@ -196,23 +170,7 @@ class AdminController extends ChangeNotifier {
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasData) {
             var data = snapshot.data!.docs;
-            return GridView.builder(
-                itemCount: data.length,
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200,
-                  // childAspectRatio: 3 / 2,
-                  // crossAxisSpacing: 20,
-                  // mainAxisSpacing: 20,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ServiceCard(
-                        usertype: 'admin',
-                        id: data[index].id,
-                        title: data[index]['type']),
-                  );
-                });
+            return GradientBuilder(data: data);
           } else if (snapshot.hasError) {
             return const Text('Something went wrong');
           }

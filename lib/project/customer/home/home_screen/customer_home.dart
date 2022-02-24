@@ -59,7 +59,8 @@ class CustomerHome extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
-        backgroundColor: const Color(0xFF755fcf),
+        // backgroundColor: const Color(0xFF755fcf).withOpacity(0.9),
+        backgroundColor: Colors.transparent,
         elevation: 30,
         leading: Builder(
           builder: (BuildContext context) => GestureDetector(
@@ -68,6 +69,7 @@ class CustomerHome extends StatelessWidget {
           ),
         ),
       ),
+      extendBodyBehindAppBar: true,
       // appBar: GradientAppBar(
       //   title: Text('Home-> ${provider.count}'),
       //   // backgroundColor: const Color(0xFF755fcf),
@@ -100,7 +102,7 @@ class CustomerHome extends StatelessWidget {
           //-----
           ClipPath(
             child: Container(
-              height: h * 0.35,
+              height: h * 0.46,
               width: w,
               decoration: const BoxDecoration(
                 color: Colors.blue,
@@ -125,10 +127,10 @@ class CustomerHome extends StatelessWidget {
           ),
           //----------------------------------------------------------------
           SizedBox(
-            height: h * 0.35,
+            height: h * 0.46,
             width: w,
             child: Padding(
-              padding: const EdgeInsets.only(left: 18.0, top: 28, bottom: 18.0),
+              padding: const EdgeInsets.only(left: 18.0, top: 92, bottom: 18.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

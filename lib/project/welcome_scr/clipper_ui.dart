@@ -1,3 +1,4 @@
+import 'package:complaintapp/decorations/colors/mycolor.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeClipperUI extends StatelessWidget {
@@ -14,18 +15,13 @@ class WelcomeClipperUI extends StatelessWidget {
         ClipPath(
           child: Container(
             height: h * 0.40,
-            decoration: const BoxDecoration(
-              color: Color(0xFF270980),
+            decoration: BoxDecoration(
+              color: MyColor.welcomeScrClip['box'],
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [
-                  Color(0xFF0B0B3B),
-                  Color(0xFF0B0B3B),
-                  Color(0xFF755fcf),
-                  Color(0xFF755fcf),
-                ],
-                stops: [0, 0.1, 0.3, 1],
+                colors: MyColor.welcomeScrClip['colors1'],
+                stops: const [0, 0.1, 0.3, 1],
               ),
             ),
           ),
@@ -34,18 +30,13 @@ class WelcomeClipperUI extends StatelessWidget {
         ClipPath(
           child: Container(
             height: h * 0.40,
-            decoration: const BoxDecoration(
-              color: Color(0xFF270980),
+            decoration: BoxDecoration(
+              color: MyColor.welcomeScrClip['box'],
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [
-                  Color(0xFF755fcf),
-                  Color(0xFF9a87e6),
-                  Color(0xFF9a87e6),
-                  Color(0xFF0B0B3B),
-                ],
-                stops: [0.1, 0.6, 0.65, 0.95],
+                colors: MyColor.welcomeScrClip['colors2'],
+                stops: const [0.3, 0.68, 0.89, 0.9],
               ),
             ),
           ),

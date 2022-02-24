@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:complaintapp/project/customer/customer_all_complaint_count.dart';
 import 'package:complaintapp/project/customer/customer_complaint_card.dart';
 import 'package:complaintapp/project/customer/home/home_screen/grid_view_builder.dart';
-import 'package:complaintapp/project/customer/home/home_screen/service_card.dart';
 import 'package:complaintapp/project/models/issue.dart';
 import 'package:flutter/material.dart';
 import 'package:complaintapp/project/models/status.dart';

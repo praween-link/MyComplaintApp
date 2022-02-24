@@ -32,20 +32,36 @@ class OperatorViewCard extends StatelessWidget {
           ],
         ),
         child: ListTile(
-          leading: const CircleAvatar(
-            backgroundColor: Color(0xFF755fcf),
-            radius: 28,
-            child: CircleAvatar(
-              radius: 27,
-              backgroundImage: AssetImage(
-                'assets/img/profile/p1.png',
+            leading: const CircleAvatar(
+              backgroundColor: Color(0xFF755fcf),
+              radius: 28,
+              child: CircleAvatar(
+                radius: 27,
+                backgroundImage: AssetImage(
+                  'assets/img/profile/p1.png',
+                ),
               ),
             ),
-          ),
-          title: Text(data.name),
-          subtitle: Text(
-              '${data.address['state']}, ${data.address['city']}, ${data.address['area']}, ${data.address['pincode']}'),
-        ),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+              Text(data.name),
+              Text(data.category),
+            ],),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Divider(),
+                Text(data.phone),
+                const Divider(),
+                Text(data.email),
+                const Divider(),
+                Text(
+                    '${data.address['state']}, ${data.address['city']}, ${data.address['area']}, ${data.address['pincode']}'),
+                const Divider(),
+                Text('*** ${data.password}'),
+              ],
+            )),
       ),
     );
   }

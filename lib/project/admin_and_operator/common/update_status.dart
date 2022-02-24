@@ -345,8 +345,8 @@ class _UpdateStatusState extends State<UpdateStatus> {
                         btnCancelOnPress: () {},
                         btnCancelText: 'NO',
                         btnOkOnPress: () {
-                      adminProvider.updateStatus(widget.id, cs);
-                      Navigator.pop(context);
+                          adminProvider.updateStatus(widget.id, cs);
+                          Navigator.pop(context);
                         },
                         btnOkText: 'YES',
                       ).show();

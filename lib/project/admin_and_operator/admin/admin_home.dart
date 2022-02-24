@@ -1,7 +1,6 @@
 import 'package:complaintapp/project/admin_and_operator/admin/adduser/add_admin.dart';
 import 'package:complaintapp/project/admin_and_operator/admin/adduser/add_operator.dart';
 import 'package:complaintapp/project/controller/admin_controller.dart';
-import 'package:complaintapp/project/controller/customer_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,10 +9,11 @@ import 'admin_drawer.dart';
 
 class AdminHomeScreen extends StatelessWidget {
   static const routeName = '/adminHomeScreen';
-  const AdminHomeScreen({Key? key}) : super(key: key);
+  const AdminHomeScreen({Key? key, required this.isAdmin}) : super(key: key);
+  final bool isAdmin;
 
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
     var provider = Provider.of<AdminController>(context);
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
