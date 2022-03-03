@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:complaintapp/project/constants/decorations.dart';
 import 'package:complaintapp/project/controller/admin_controller.dart';
 import 'package:complaintapp/project/controller/customer_controller.dart';
+import 'package:complaintapp/project/controller/edit_complaint_data.dart';
 import 'package:complaintapp/project/customer/add_issue.dart/add_issue.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,8 +21,7 @@ class ServiceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var adminProvider = Provider.of<AdminController>(context);
-    var customerProvider = Provider.of<CustomerController>(context);
+    var ecProvider = Provider.of<EditComplaintProvider>(context);
     String logolink = 'assets/img/1.png';
     return GestureDetector(
       onLongPress: () => usertype == 'admin'
@@ -56,7 +56,7 @@ class ServiceCard extends StatelessWidget {
               ),
               btnCancelOnPress: () {},
               btnCancelText: 'NO',
-              btnOkOnPress: () => adminProvider.deleteComplaintTypesFromDB(id),
+              btnOkOnPress: () => ecProvider.deleteComplaintTypesFromDB(id),
               btnOkText: 'YES',
             ).show()
           : Navigator.push(context,

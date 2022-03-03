@@ -24,12 +24,11 @@ class OperatorsListViewBuilder extends StatelessWidget {
             phone: data[index]['phone'],
             password: data[index]['password'],
             email: data[index]['email'],
-            address: {
-              'pincode': data[index]['address']['pincode'],
-              'state': data[index]['address']['state'],
-              'city': data[index]['address']['city'],
-              'area': data[index]['address']['area']
-            },
+            address: OperatorAddress(
+                pincode: data[index]['address']['pincode'],
+                state: data[index]['address']['state'],
+                city: data[index]['address']['city'],
+                area: data[index]['address']['area']),
             photo: data[index]['photo'],
             category: data[index]['category'],
           );

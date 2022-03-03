@@ -1,12 +1,14 @@
 import 'package:complaintapp/project/admin_and_operator/admin/adduser/add_admin.dart';
 import 'package:complaintapp/project/admin_and_operator/admin/adduser/add_operator.dart';
-import 'package:complaintapp/project/admin_and_operator/admin/admin_home.dart';
-import 'package:complaintapp/project/admin_and_operator/admin/profile/admin_profile.dart';
+import 'package:complaintapp/project/admin_and_operator/admin/complaints_type/add_complaints_type.dart';
+import 'package:complaintapp/project/admin_and_operator/home/profile/profile.dart';
+import 'package:complaintapp/project/admin_and_operator/home_screen.dart';
 import 'package:complaintapp/project/admin_and_operator/admin/viewuser/admin/all_admin_view_screen.dart';
+import 'package:complaintapp/project/controller/common_controller.dart';
 import 'package:complaintapp/project/welcome_scr/welcome_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'complaints_type/add_complaints_type.dart';
 import 'viewuser/operator/all_operator_view_screen.dart';
 
 class AdminDrawer extends StatelessWidget {
@@ -16,17 +18,18 @@ class AdminDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var commonProvider = Provider.of<CommonController>(context);
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
             child: FadeInImage(
-              image: const NetworkImage("https://www.awn.com/sites/default/files/styles/inline_wide/public/image/featured/1040167-original-songs-mexican-sounds-set-pixars-coco-soundtrack.jpg?itok=fCz310bu"),
+              image: const NetworkImage(
+                  "https://www.awn.com/sites/default/files/styles/inline_wide/public/image/featured/1040167-original-songs-mexican-sounds-set-pixars-coco-soundtrack.jpg?itok=fCz310bu"),
               placeholder: const AssetImage("assets/img/google.png"),
               imageErrorBuilder: (context, error, stackTrace) {
-                return Image.asset('assets/images/1.png',
-                    fit: BoxFit.cover);
+                return Image.asset('assets/images/1.png', fit: BoxFit.cover);
               },
               fit: BoxFit.cover,
             ),
@@ -41,15 +44,18 @@ class AdminDrawer extends StatelessWidget {
             // child: Text(''),
           ),
           ListTile(
+            title: Text(commonProvider.adminLoginedData.name),
+            subtitle: Text(commonProvider.adminLoginedData.email),
+          ),
+          ListTile(
             leading: const Icon(Icons.home),
             title: const Text('Home'),
-            onTap: () =>
-                Navigator.pushNamed(context, AdminHomeScreen.routeName),
+            onTap: () => Navigator.pushNamed(context, HomeScreen.routeName),
           ),
           ListTile(
             leading: const Icon(Icons.account_circle),
             title: const Text('Profile'),
-            onTap: () => Navigator.pushNamed(context, AdminProfile.routeName),
+            onTap: () => Navigator.pushNamed(context, Profile.routeName),
           ),
           ListTile(
             leading: const Icon(Icons.add_to_photos_rounded),
@@ -64,17 +70,26 @@ class AdminDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text('Customer Decoration'),
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> const AddComplaintType())),
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const AddComplaintType())),
           ),
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text('Admins'),
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> const AllAdminViewScreen())),
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const AllAdminViewScreen())),
           ),
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text('Operators'),
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> const AlloperatorsViewScreen())),
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const AlloperatorsViewScreen())),
           ),
           ListTile(
             leading: const Icon(Icons.settings),

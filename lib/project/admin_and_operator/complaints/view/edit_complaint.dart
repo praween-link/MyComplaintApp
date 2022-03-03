@@ -1,7 +1,8 @@
-import 'package:complaintapp/project/admin_and_operator/admin/admin_home.dart';
+import 'package:complaintapp/project/admin_and_operator/home_screen.dart';
 import 'package:complaintapp/project/constants/decorations.dart';
 import 'package:complaintapp/project/controller/admin_controller.dart';
 import 'package:complaintapp/project/controller/customer_controller.dart';
+import 'package:complaintapp/project/controller/fetch_complaint_data.dart';
 import 'package:complaintapp/project/models/issue.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -36,18 +37,18 @@ class _AdminEditIssueState extends State<AdminEditIssue> {
   // final IssueController _issueController = Get.put(IssueController());
   bool run = true;
   void addDataOfDB() {
-    var adminProvider = Provider.of<AdminController>(context);
-    type = adminProvider.issues[widget.id]?.type ?? '';
-    title = adminProvider.issues[widget.id]?.title ?? '';
-    category = adminProvider.issues[widget.id]?.category ?? '';
-    description = adminProvider.issues[widget.id]?.description ?? '';
-    name = adminProvider.issues[widget.id]?.name ?? '';
-    phone = adminProvider.issues[widget.id]?.phone ?? '';
-    pincode = adminProvider.issues[widget.id]?.pincode ?? '';
-    state = adminProvider.issues[widget.id]?.state ?? '';
-    city = adminProvider.issues[widget.id]?.city ?? '';
-    area = adminProvider.issues[widget.id]?.area ?? '';
-    locationTypeHome = adminProvider.issues[widget.id]?.locationtype ?? '';
+    var fcProvider = Provider.of<FetchComplaintProvider>(context);
+    type = fcProvider.issues[widget.id]?.type ?? '';
+    title = fcProvider.issues[widget.id]?.title ?? '';
+    category = fcProvider.issues[widget.id]?.category ?? '';
+    description = fcProvider.issues[widget.id]?.description ?? '';
+    name = fcProvider.issues[widget.id]?.name ?? '';
+    phone = fcProvider.issues[widget.id]?.phone ?? '';
+    pincode = fcProvider.issues[widget.id]?.pincode ?? '';
+    state = fcProvider.issues[widget.id]?.state ?? '';
+    city = fcProvider.issues[widget.id]?.city ?? '';
+    area = fcProvider.issues[widget.id]?.area ?? '';
+    locationTypeHome = fcProvider.issues[widget.id]?.locationtype ?? '';
   }
 
   @override
@@ -427,7 +428,7 @@ class _AdminEditIssueState extends State<AdminEditIssue> {
                                 ),
                               ),
                               btnOkOnPress: () => Navigator.pushNamed(
-                                  context, AdminHomeScreen.routeName),
+                                  context, HomeScreen.routeName),
                               btnOkText: 'Back to home')
                           .show();
                     }

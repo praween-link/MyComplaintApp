@@ -1,6 +1,5 @@
-import 'package:complaintapp/project/admin_and_operator/admin/admin_home.dart';
+import 'package:complaintapp/project/admin_and_operator/home_screen.dart';
 import 'package:complaintapp/project/constants/decorations.dart';
-import 'package:complaintapp/project/controller/admin_controller.dart';
 import 'package:complaintapp/project/controller/operator_controller.dart';
 import 'package:complaintapp/project/models/operator.dart';
 import 'package:flutter/material.dart';
@@ -301,12 +300,11 @@ class _AddOperatorState extends State<AddOperator> {
                 GestureDetector(
                   onTap: () {
                     if (_formKey.currentState!.validate() && category != '') {
-                      Map<String, String> address = {
-                        'pincode': pincode,
-                        'state': state,
-                        'city': city,
-                        'area': area
-                      };
+                      OperatorAddress address = OperatorAddress(
+                          pincode: pincode,
+                          state: state,
+                          city: city,
+                          area: area);
                       Operator operator = Operator(
                           name: name,
                           phone: phone,
@@ -344,7 +342,7 @@ class _AddOperatorState extends State<AddOperator> {
                                 ),
                               ),
                               btnOkOnPress: () => Navigator.pushNamed(
-                                  context, AdminHomeScreen.routeName),
+                                  context, HomeScreen.routeName),
                               btnOkText: 'Back to home')
                           .show();
                     }

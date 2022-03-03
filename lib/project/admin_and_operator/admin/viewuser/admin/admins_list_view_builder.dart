@@ -25,15 +25,15 @@ class AdminsListViewBuilder extends StatelessWidget {
             phone: data[index]['phone'],
             password: data[index]['password'],
             email: data[index]['email'],
-            address: {
-              'pincode': data[index]['address']['pincode'],
-              'state': data[index]['address']['state'],
-              'city': data[index]['address']['city'],
-              'area': data[index]['address']['area']
-            },
+            address: AdminAddress(
+                pincode: data[index]['address']['pincode'],
+                state: data[index]['address']['state'],
+                city: data[index]['address']['city'],
+                area: data[index]['address']['area']),
             photo: data[index]['photo'],
           );
-          adminController.addAdminToMap(data[index].id, admin, data[index]['phone']);
+          adminController.addAdminToMap(
+              data[index].id, admin, data[index]['phone']);
           return AdminViewCard(data: admin);
         });
   }

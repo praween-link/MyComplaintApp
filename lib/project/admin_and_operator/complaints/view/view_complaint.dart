@@ -1,11 +1,12 @@
 import 'dart:ui';
 
-import 'package:complaintapp/project/admin_and_operator/admin/admin_clippers/admin_clippers.dart';
+import 'package:complaintapp/project/admin_and_operator/admin/admin_drawer.dart';
+import 'package:complaintapp/project/admin_and_operator/home/top_ui_part/top_clippers.dart';
 import 'package:complaintapp/project/controller/admin_controller.dart';
+import 'package:complaintapp/project/controller/fetch_complaint_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../admin_drawer.dart';
 
 class ViewComplaint extends StatelessWidget {
   static const routeName = '/viewComplaint'; //adminProfile
@@ -16,14 +17,15 @@ class ViewComplaint extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<AdminController>(context);
-    status = provider.issuesstatus[id]!.status; //new.pending.process.completed
-    String processStatus = provider.issuesstatus[id]!.currentStatus; // recorded, assigned, traveling, done
+    // var provider = Provider.of<AdminController>(context);
+    var fcProvider = Provider.of<FetchComplaintProvider>(context);
+    status = fcProvider.issuesstatus[id]!.status; //new.pending.process.completed
+    String processStatus = fcProvider.issuesstatus[id]!.currentStatus; // recorded, assigned, traveling, done
 
-    String statusRecordedDate = provider.issuesstatus[id]!.dates['recorded'].toString();
-    String statusAssignedDate = provider.issuesstatus[id]!.dates['assigned'].toString();
-    String statusTravelingDate = provider.issuesstatus[id]!.dates['traveling'].toString();
-    String statusDoneDate = provider.issuesstatus[id]!.dates['done'].toString();
+    String statusRecordedDate = fcProvider.issuesstatus[id]!.dates['recorded'].toString();
+    String statusAssignedDate = fcProvider.issuesstatus[id]!.dates['assigned'].toString();
+    String statusTravelingDate = fcProvider.issuesstatus[id]!.dates['traveling'].toString();
+    String statusDoneDate = fcProvider.issuesstatus[id]!.dates['done'].toString();
  
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
@@ -266,29 +268,29 @@ class ViewComplaint extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       CircleAvatar(
-                                          backgroundColor: provider.issuesstatus[id]!.processStatus['recorded'] as bool
+                                          backgroundColor: fcProvider.issuesstatus[id]!.processStatus['recorded'] as bool
                                                        ||
-                                                  provider.issuesstatus[id]!.processStatus['assigned'] as bool ||
-                                                  provider.issuesstatus[id]!.processStatus['traveling'] as bool ||
-                                                  provider.issuesstatus[id]!.processStatus['done'] as bool
+                                                  fcProvider.issuesstatus[id]!.processStatus['assigned'] as bool ||
+                                                  fcProvider.issuesstatus[id]!.processStatus['traveling'] as bool ||
+                                                  fcProvider.issuesstatus[id]!.processStatus['done'] as bool
                                               ? Colors.green
                                               : Colors.grey[300]),
                                       CircleAvatar(
-                                        backgroundColor: provider.issuesstatus[id]!.processStatus['assigned'] as bool ||
-                                                provider.issuesstatus[id]!.processStatus['traveling'] as bool ||
-                                                provider.issuesstatus[id]!.processStatus['done'] as bool
+                                        backgroundColor: fcProvider.issuesstatus[id]!.processStatus['assigned'] as bool ||
+                                                fcProvider.issuesstatus[id]!.processStatus['traveling'] as bool ||
+                                                fcProvider.issuesstatus[id]!.processStatus['done'] as bool
                                             ? Colors.green
                                             : Colors.grey[300],
                                       ),
                                       CircleAvatar(
                                         backgroundColor:
-                                            provider.issuesstatus[id]!.processStatus['traveling'] as bool ||
-                                                    provider.issuesstatus[id]!.processStatus['done'] as bool
+                                            fcProvider.issuesstatus[id]!.processStatus['traveling'] as bool ||
+                                                    fcProvider.issuesstatus[id]!.processStatus['done'] as bool
                                                 ? Colors.green
                                                 : Colors.grey[300],
                                       ),
                                       CircleAvatar(
-                                        backgroundColor: provider.issuesstatus[id]!.processStatus['done'] as bool
+                                        backgroundColor: fcProvider.issuesstatus[id]!.processStatus['done'] as bool
                                             ? Colors.green
                                             : Colors.grey[300],
                                       ),
@@ -373,7 +375,7 @@ class ViewComplaint extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              "☛  ${provider.issues[id]!.category}",
+                              "☛  ${fcProvider.issues[id]!.category}",
                               style: const TextStyle(fontSize: 16),
                             ),
                             const SizedBox(height: 20),
@@ -385,7 +387,7 @@ class ViewComplaint extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              "☛  ${provider.issues[id]!.title}",
+                              "☛  ${fcProvider.issues[id]!.title}",
                               style: const TextStyle(fontSize: 16),
                             ),
                             const SizedBox(height: 20),
@@ -397,7 +399,7 @@ class ViewComplaint extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              "☛  ${provider.issues[id]!.description}",
+                              "☛  ${fcProvider.issues[id]!.description}",
                               style: const TextStyle(fontSize: 16),
                             ),
                             const SizedBox(height: 20),
@@ -411,28 +413,28 @@ class ViewComplaint extends StatelessWidget {
                             ListTile(
                               leading: const Icon(Icons.location_on),
                               title: Text(
-                                '${provider.issues[id]!.area}, ${provider.issues[id]!.city}, ${provider.issues[id]!.state}, ${provider.issues[id]!.pincode}',
+                                '${fcProvider.issues[id]!.area}, ${fcProvider.issues[id]!.city}, ${fcProvider.issues[id]!.state}, ${fcProvider.issues[id]!.pincode}',
                                 style: const TextStyle(fontSize: 16),
                               ),
                             ),
                             ListTile(
                               leading: const Icon(Icons.person),
                               title: Text(
-                                provider.issues[id]!.name,
+                                fcProvider.issues[id]!.name,
                                 style: const TextStyle(fontSize: 16),
                               ),
                             ),
                             ListTile(
                               leading: const Icon(Icons.phone),
                               title: Text(
-                                '+91 ${provider.issues[id]!.phone}',
+                                '+91 ${fcProvider.issues[id]!.phone}',
                                 style: const TextStyle(fontSize: 16),
                               ),
                             ),
                             ListTile(
                               leading: const Icon(Icons.email),
                               title: Text(
-                                provider.issues[id]!.email,
+                                fcProvider.issues[id]!.email,
                                 style: const TextStyle(fontSize: 16),
                               ),
                             ),

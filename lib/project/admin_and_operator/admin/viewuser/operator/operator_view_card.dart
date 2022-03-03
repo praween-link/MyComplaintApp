@@ -57,7 +57,7 @@ class OperatorViewCard extends StatelessWidget {
                 Text(data.email),
                 const Divider(),
                 Text(
-                    '${data.address['state']}, ${data.address['city']}, ${data.address['area']}, ${data.address['pincode']}'),
+                    '${data.address.state}, ${data.address.city}, ${data.address.area}, ${data.address.pincode}'),
                 const Divider(),
                 Text('*** ${data.password}'),
               ],

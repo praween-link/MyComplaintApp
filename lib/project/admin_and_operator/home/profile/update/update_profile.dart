@@ -2,22 +2,22 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:complaintapp/project/admin_and_operator/admin/admin_clippers/admin_clippers.dart';
+import 'package:complaintapp/project/admin_and_operator/home/top_ui_part/top_clippers.dart';
+import 'package:complaintapp/project/admin_and_operator/admin/admin_drawer.dart';
 import 'package:complaintapp/project/constants/decorations.dart';
 import 'package:flutter/material.dart';
 
-import '../../admin_drawer.dart';
 import 'package:image_picker/image_picker.dart';
 
-class UpdateAdminProfile extends StatefulWidget {
+class UpdateProfile extends StatefulWidget {
   static const routeName = '/updateAdminProfile';
-  const UpdateAdminProfile({Key? key}) : super(key: key);
+  const UpdateProfile({Key? key}) : super(key: key);
 
   @override
-  State<UpdateAdminProfile> createState() => _UpdateAdminProfileState();
+  State<UpdateProfile> createState() => _UpdateProfileState();
 }
 
-class _UpdateAdminProfileState extends State<UpdateAdminProfile> {
+class _UpdateProfileState extends State<UpdateProfile> {
   String category = '';
 
   final _formKey = GlobalKey<FormState>();

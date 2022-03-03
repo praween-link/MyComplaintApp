@@ -1,12 +1,12 @@
 import 'package:complaintapp/project/admin_and_operator/admin/adduser/add_admin.dart';
 import 'package:complaintapp/project/admin_and_operator/admin/adduser/add_operator.dart';
-import 'package:complaintapp/project/admin_and_operator/admin/admin_home.dart';
-import 'package:complaintapp/project/admin_and_operator/admin/assign/assign_issue.dart';
-import 'package:complaintapp/project/admin_and_operator/admin/profile/admin_profile.dart';
-import 'package:complaintapp/project/admin_and_operator/admin/view/edit_complaint.dart';
-import 'package:complaintapp/project/admin_and_operator/admin/view/view_complaint.dart';
-import 'package:complaintapp/project/admin_and_operator/common/login_screen.dart';
-import 'package:complaintapp/project/admin_and_operator/common/update_status.dart';
+import 'package:complaintapp/project/admin_and_operator/complaints/assign/assign_issue.dart';
+import 'package:complaintapp/project/admin_and_operator/complaints/view/edit_complaint.dart';
+import 'package:complaintapp/project/admin_and_operator/complaints/view/view_complaint.dart';
+import 'package:complaintapp/project/admin_and_operator/home/profile/profile.dart';
+import 'package:complaintapp/project/admin_and_operator/home_screen.dart';
+import 'package:complaintapp/project/admin_and_operator/login/login_screen.dart';
+import 'package:complaintapp/project/admin_and_operator/complaints/update_status.dart';
 import 'package:complaintapp/project/customer/add_issue.dart/add_issue.dart';
 import 'package:complaintapp/project/customer/home/home_screen/customer_home.dart';
 import 'package:complaintapp/project/customer/home/profile/customer_profile.dart';
@@ -40,10 +40,10 @@ class MyRoute {
                       return const AddIssue(type: '');
                     case AdminAndOperatorLogin.routeName:
                       return const AdminAndOperatorLogin();
-                    case AdminHomeScreen.routeName:
-                      return const AdminHomeScreen(isAdmin: false,);
-                    case AdminProfile.routeName:
-                      return const AdminProfile();
+                    case HomeScreen.routeName:
+                      return const HomeScreen();
+                    case Profile.routeName:
+                      return const Profile();
                     case AddAdmin.routeName:
                       return const AddAdmin();
                     case AddOperator.routeName:

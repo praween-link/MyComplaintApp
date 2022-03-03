@@ -1,6 +1,8 @@
 import 'package:complaintapp/project/controller/admin_controller.dart';
 import 'package:complaintapp/project/controller/common_controller.dart';
 import 'package:complaintapp/project/controller/customer_controller.dart';
+import 'package:complaintapp/project/controller/edit_complaint_data.dart';
+import 'package:complaintapp/project/controller/fetch_complaint_data.dart';
 import 'package:complaintapp/project/controller/login_controller.dart';
 import 'package:complaintapp/project/controller/operator_controller.dart';
 import 'package:complaintapp/routes/myroutes.dart';
@@ -44,6 +46,12 @@ class MyApp extends StatelessWidget {
             ),
             ChangeNotifierProvider<LoginController>(
               create: (context) => LoginController(),
+            ),
+            ChangeNotifierProvider<FetchComplaintProvider>(
+              create: (context) => FetchComplaintProvider(),
+            ),
+            ChangeNotifierProvider<EditComplaintProvider>(
+              create: (context) => EditComplaintProvider(),
             ),
           ],
           child: MaterialApp(

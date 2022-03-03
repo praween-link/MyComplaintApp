@@ -1,7 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:complaintapp/project/admin_and_operator/common/update_status.dart';
-import 'package:complaintapp/project/controller/admin_controller.dart';
+import 'package:complaintapp/project/admin_and_operator/complaints/update_status.dart';
 import 'package:complaintapp/project/controller/customer_controller.dart';
+import 'package:complaintapp/project/controller/edit_complaint_data.dart';
 import 'package:complaintapp/project/customer/add_issue.dart/edit_issue.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,8 +20,7 @@ class CustomerComplaintCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var customerProvider = Provider.of<CustomerController>(context);
-    var adminProvider = Provider.of<AdminController>(context);
-    double h = MediaQuery.of(context).size.height;
+    var ecProvider = Provider.of<EditComplaintProvider>(context);
     double w = MediaQuery.of(context).size.width;
     String address =
         '${customerProvider.issues[id]!.state}, ${customerProvider.issues[id]!.city}, ${customerProvider.issues[id]!.area}, ${customerProvider.issues[id]!.pincode}';
@@ -113,7 +112,7 @@ class CustomerComplaintCard extends StatelessWidget {
                   btnCancelOnPress: () {},
                   btnCancelText: 'NO',
                   btnOkOnPress: () {
-                    adminProvider.deleteComplaint(id);
+                    ecProvider.deleteComplaint(id);
                     Navigator.pop(context);
                   },
                   btnOkText: 'YES',
@@ -431,7 +430,7 @@ class CustomerComplaintCard extends StatelessWidget {
                   btnCancelOnPress: () {},
                   btnCancelText: 'NO',
                   btnOkOnPress: () {
-                    adminProvider.deleteComplaint(id);
+                    ecProvider.deleteComplaint(id);
                     Navigator.pop(context);
                   },
                   btnOkText: 'YES',

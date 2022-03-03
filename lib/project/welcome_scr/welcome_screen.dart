@@ -1,4 +1,4 @@
-import 'package:complaintapp/project/admin_and_operator/common/login_screen.dart';
+import 'package:complaintapp/project/admin_and_operator/login/login_screen.dart';
 import 'package:complaintapp/project/constants/decorations.dart';
 import 'package:complaintapp/project/controller/login_controller.dart';
 import 'package:complaintapp/project/controller/operator_controller.dart';

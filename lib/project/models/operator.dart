@@ -3,7 +3,7 @@ class Operator {
   final String phone;
   final String password;
   final String email;
-  final Map<String, String> address;
+  final OperatorAddress address;
   final String photo;
   final String category;
 
@@ -15,4 +15,14 @@ class Operator {
       required this.address,
       required this.photo,
       required this.category});
+}
+
+
+class OperatorAddress{
+  final String pincode;
+  final String state;
+  final String city;
+  final String area;
+
+  const OperatorAddress({required this.pincode, required this.state, required this.city, required this.area});
 }

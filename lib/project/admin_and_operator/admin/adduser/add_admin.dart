@@ -1,4 +1,4 @@
-import 'package:complaintapp/project/admin_and_operator/admin/admin_home.dart';
+import 'package:complaintapp/project/admin_and_operator/home_screen.dart';
 import 'package:complaintapp/project/constants/decorations.dart';
 import 'package:complaintapp/project/controller/admin_controller.dart';
 import 'package:complaintapp/project/models/admin.dart';
@@ -198,12 +198,11 @@ class _AddAdminState extends State<AddAdmin> {
                 GestureDetector(
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
-                      Map<String, String> address = {
-                        'pincode': pincode,
-                        'state': state,
-                        'city': city,
-                        'area': area
-                      };
+                      AdminAddress address = AdminAddress(
+                          pincode: pincode,
+                          state: state,
+                          city: city,
+                          area: area);
                       Admin admin = Admin(
                           name: name,
                           phone: phone,
@@ -247,7 +246,7 @@ class _AddAdminState extends State<AddAdmin> {
                                 ),
                               ),
                               btnOkOnPress: () => Navigator.pushNamed(
-                                  context, AdminHomeScreen.routeName),
+                                  context, HomeScreen.routeName),
                               btnOkText: 'Back to home')
                           .show();
                     }

@@ -1,13 +1,15 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:complaintapp/project/admin_and_operator/admin/assign/assign_issue.dart';
-import 'package:complaintapp/project/admin_and_operator/admin/view/view_complaint.dart';
-import 'package:complaintapp/project/admin_and_operator/common/update_status.dart';
+import 'package:complaintapp/project/admin_and_operator/complaints/update_status.dart';
 import 'package:complaintapp/project/constants/methods.dart';
 import 'package:complaintapp/project/controller/admin_controller.dart';
+import 'package:complaintapp/project/controller/edit_complaint_data.dart';
+import 'package:complaintapp/project/controller/fetch_complaint_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'assign/assign_issue.dart';
 import 'view/edit_complaint.dart';
+import 'view/view_complaint.dart';
 
 class AdminComplaintCard extends StatelessWidget {
   AdminComplaintCard({
@@ -22,20 +24,22 @@ class AdminComplaintCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var adminProvider = Provider.of<AdminController>(context);
+    var ecProvider = Provider.of<EditComplaintProvider>(context);
+    var fcProvider = Provider.of<FetchComplaintProvider>(context);
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     String address =
-        '${adminProvider.issues[id]!.state}, ${adminProvider.issues[id]!.city}, ${adminProvider.issues[id]!.area}, ${adminProvider.issues[id]!.pincode}';
+        '${fcProvider.issues[id]!.state}, ${fcProvider.issues[id]!.city}, ${fcProvider.issues[id]!.area}, ${fcProvider.issues[id]!.pincode}';
     // address = address.length < 30
     //     ? address
     //     : '${address.substring(0, address.length - (address.length - 35))}...';
     //--
     String date =
-        adminProvider.issues[id]!.datetime.toString().substring(0, 11);
+        fcProvider.issues[id]!.datetime.toString().substring(0, 11);
     int hr = int.parse(
-        adminProvider.issues[id]!.datetime.toString().substring(11, 13));
+        fcProvider.issues[id]!.datetime.toString().substring(11, 13));
     int min = int.parse(
-        adminProvider.issues[id]!.datetime.toString().substring(14, 16));
+        fcProvider.issues[id]!.datetime.toString().substring(14, 16));
     String time = timeFormat(hr, min);
     //--
     return GestureDetector(
@@ -160,9 +164,9 @@ class AdminComplaintCard extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(left: 18.0),
                           child: Text(
-                            adminProvider.issuesstatus[id]!.status,
+                            fcProvider.issuesstatus[id]!.status,
                             style: const TextStyle(
-                              color: Color(0xff050229),
+                              // color: Color(0xff050229),
                               fontSize: 18.0,
                               fontWeight: FontWeight.w600,
                             ),
@@ -187,9 +191,9 @@ class AdminComplaintCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 18.0),
                       child: Text(
-                        "Type:  ${adminProvider.issues[id]!.type}",
+                        "Type:  ${fcProvider.issues[id]!.type}",
                         style: const TextStyle(
-                          color: Color(0xff050229),
+                          // color: Color(0xff050229),
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -198,9 +202,9 @@ class AdminComplaintCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 18.0),
                       child: Text(
-                        "Category:  ${adminProvider.issues[id]!.category}",
+                        "Category:  ${fcProvider.issues[id]!.category}",
                         style: const TextStyle(
-                          color: Color(0xff050229),
+                          // color: Color(0xff050229),
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -209,9 +213,9 @@ class AdminComplaintCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 18.0),
                       child: Text(
-                        "Title:  ${adminProvider.issues[id]!.title}",
+                        "Title:  ${fcProvider.issues[id]!.title}",
                         style: const TextStyle(
-                          color: Color(0xff050229),
+                          // color: Color(0xff050229),
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -219,12 +223,12 @@ class AdminComplaintCard extends StatelessWidget {
                     const SizedBox(height: 10.0),
                     Padding(
                       padding: const EdgeInsets.only(left: 18.0, right: 10),
-                      child: Container(
+                      child: SizedBox(
                         width: w - 140,
                         child: Text(
                           "☛  $address",
                           style: const TextStyle(
-                            color: Color(0xff050229),
+                            // color: Color(0xff050229),
                             fontWeight: FontWeight.w400,
                           ),
                           overflow: TextOverflow.ellipsis,
@@ -351,7 +355,7 @@ class AdminComplaintCard extends StatelessWidget {
                                       btnCancelOnPress: () {},
                                       btnCancelText: 'NO',
                                       btnOkOnPress: () {
-                                        adminProvider.deleteComplaint(id);
+                                        ecProvider.deleteComplaint(id);
                                         Navigator.pop(context);
                                       },
                                       btnOkText: 'YES',

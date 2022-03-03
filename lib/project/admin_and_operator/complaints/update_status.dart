@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:complaintapp/project/constants/decorations.dart';
 import 'package:complaintapp/project/constants/methods.dart';
 import 'package:complaintapp/project/controller/admin_controller.dart';
+import 'package:complaintapp/project/controller/fetch_complaint_data.dart';
 import 'package:complaintapp/project/models/status.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -53,17 +54,17 @@ class _UpdateStatusState extends State<UpdateStatus> {
   }
 
   void addDataOfDB() {
-    var adminProvider = Provider.of<AdminController>(context);
-    selectedStatus = adminProvider.issuesstatus[widget.id]!.status;
-    recorded = adminProvider.issuesstatus[widget.id]!.processStatus['recorded']
+    var fcProvider = Provider.of<FetchComplaintProvider>(context);
+    selectedStatus = fcProvider.issuesstatus[widget.id]!.status;
+    recorded = fcProvider.issuesstatus[widget.id]!.processStatus['recorded']
         as bool;
-    assigned = adminProvider.issuesstatus[widget.id]!.processStatus['assigned']
+    assigned = fcProvider.issuesstatus[widget.id]!.processStatus['assigned']
         as bool;
-    traveling = adminProvider
+    traveling = fcProvider
         .issuesstatus[widget.id]!.processStatus['traveling'] as bool;
-    done = adminProvider.issuesstatus[widget.id]!.processStatus['done'] as bool;
+    done = fcProvider.issuesstatus[widget.id]!.processStatus['done'] as bool;
     selectedCurrentStatus =
-        adminProvider.issuesstatus[widget.id]!.currentStatus;
+        fcProvider.issuesstatus[widget.id]!.currentStatus;
     // timeOfDay = adminProvider.issuesstatus[widget.id]!.dates as TimeOfDay;
   }
 
@@ -72,6 +73,7 @@ class _UpdateStatusState extends State<UpdateStatus> {
   @override
   Widget build(BuildContext context) {
     var adminProvider = Provider.of<AdminController>(context);
+    var fcProvider = Provider.of<FetchComplaintProvider>(context);
     if (run) {
       addDataOfDB();
       setState(() {
@@ -273,7 +275,7 @@ class _UpdateStatusState extends State<UpdateStatus> {
                   const SizedBox(height: 15),
                   GestureDetector(
                     onTap: () {
-                      var d = adminProvider.issuesstatus[widget.id]!.dates;
+                      var d = fcProvider.issuesstatus[widget.id]!.dates;
                       Map<String, bool> ps = {
                         'recorded': recorded,
                         'assigned': assigned,

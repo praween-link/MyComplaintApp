@@ -1,9 +1,10 @@
-import 'package:complaintapp/project/admin_and_operator/admin/admin_home.dart';
+import 'package:complaintapp/project/admin_and_operator/home_screen.dart';
 import 'package:complaintapp/project/constants/decorations.dart';
-import 'package:complaintapp/project/controller/admin_controller.dart';
 import 'package:complaintapp/project/controller/common_controller.dart';
 import 'package:complaintapp/project/controller/login_controller.dart';
-import 'package:complaintapp/project/controller/operator_controller.dart';
+import 'package:complaintapp/project/models/admin.dart';
+import 'package:complaintapp/project/models/logined_data.dart';
+import 'package:complaintapp/project/models/operator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,8 +24,6 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     var commonProvider = Provider.of<CommonController>(context);
-    var adminProvider = Provider.of<AdminController>(context);
-    var operatorProvider = Provider.of<OperatorController>(context);
     var loginProvider = Provider.of<LoginController>(context);
     // commonProvider.getUser();
     return Padding(
@@ -89,8 +88,10 @@ class _LoginFormState extends State<LoginForm> {
             // Text(commonProvider.isAdmin.toString()),
             // Text(adminProvider.adminPhoneNo.contains(phone).toString()),
             // const Text('-------'),
-            Text('Operator-> {Phone: pass} -> ${loginProvider.operatorPass.toString()}'),
-            Text('Admin-> {Phone: pass} -> ${loginProvider.adminPass.toString()}'),
+            Text(
+                'Operator-> {Phone: pass} -> ${loginProvider.operatorPass.toString()}'),
+            Text(
+                'Admin-> {Phone: pass} -> ${loginProvider.adminPass.toString()}'),
             // Text(loginProvider.adminPass[phone].toString()),
             // Text(loginProvider.operatorPass[phone].toString()),
             // Text('-------------${commonProvider.getStringValuesSF().toString()}'),
@@ -99,11 +100,20 @@ class _LoginFormState extends State<LoginForm> {
             GestureDetector(
               onTap: () {
                 if (_formKey.currentState!.validate()) {
+                  commonProvider.changeLogined(
+                      commonProvider.isAdmin ? 'admin' : 'operator');
+                  if (commonProvider.isAdmin) {
+                    Admin admin = loginProvider.adminPass['${phone}data'];
+                    commonProvider.changeAdminLoginedData(admin);
+                  } else {
+                    Operator operator = loginProvider.operatorPass['${phone}data'];
+                    commonProvider.changeOperatorLoginedData(operator);
+                  }
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          AdminHomeScreen(isAdmin: commonProvider.isAdmin),
+                      builder: (context) => const HomeScreen(),
                     ),
                   );
                 }

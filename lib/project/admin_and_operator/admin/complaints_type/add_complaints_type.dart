@@ -1,4 +1,5 @@
 import 'package:complaintapp/project/controller/admin_controller.dart';
+import 'package:complaintapp/project/controller/edit_complaint_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,13 +17,14 @@ class _AddComplaintTypeState extends State<AddComplaintType> {
   @override
   Widget build(BuildContext context) {
     var adminProvider = Provider.of<AdminController>(context);
+    var ecProvider = Provider.of<EditComplaintProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Oerator Decoration'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
-        child: adminProvider.getComplaintTypesFromDB(),
+        child: ecProvider.getComplaintTypesFromDB(),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
@@ -30,12 +32,10 @@ class _AddComplaintTypeState extends State<AddComplaintType> {
             isScrollControlled: true,
             context: context,
             builder: (context) => SingleChildScrollView(
-              child: Container(
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom),
-                  child: bottomSheet(adminProvider, context),
-                ),
+              child: Padding(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: bottomSheet(ecProvider, context),
               ),
             ),
           );
@@ -57,7 +57,7 @@ class _AddComplaintTypeState extends State<AddComplaintType> {
     );
   }
 
-  Container bottomSheet(AdminController provider, BuildContext context) {
+  Container bottomSheet(EditComplaintProvider ecProvider, BuildContext context) {
     return Container(
       child: Center(
         child: Padding(
@@ -93,7 +93,7 @@ class _AddComplaintTypeState extends State<AddComplaintType> {
                   child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          provider.addCompalaintTypeToDB(type);
+                          ecProvider.addCompalaintTypeToDB(type);
                           Navigator.pop(context);
                         }
                       },

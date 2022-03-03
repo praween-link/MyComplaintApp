@@ -1,53 +1,17 @@
 import 'package:complaintapp/project/admin_and_operator/admin/adduser/add_admin.dart';
 import 'package:complaintapp/project/admin_and_operator/admin/adduser/add_operator.dart';
-import 'package:complaintapp/project/controller/admin_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import 'admin_clippers/admin_clippers.dart';
-import 'admin_drawer.dart';
+import 'top_clippers.dart';
 
-class AdminHomeScreen extends StatelessWidget {
-  static const routeName = '/adminHomeScreen';
-  const AdminHomeScreen({Key? key, required this.isAdmin}) : super(key: key);
-  final bool isAdmin;
+class topUiBottomAppBar extends StatelessWidget {
+  const topUiBottomAppBar({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<AdminController>(context);
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home-> ${provider.count}|${provider.issues.length}'),
-        backgroundColor: const Color(0xFF614ac2),
-        elevation: 15,
-        leading: Builder(
-          builder: (BuildContext context) => GestureDetector(
-            child: Image.asset('assets/img/menu_icon.png'),
-            onTap: () => Scaffold.of(context).openDrawer(),
-          ),
-        ),
-      ),
-      // backgroundColor: Colors.blueGrey[200],
-      body: Stack(
-        children: [
-          provider.AdminIssuesListDataWidget(),
-          // ListView.builder(
-          //     itemCount: 3,
-          //     itemBuilder: (context, int index) {
-          //       return index == 0
-          //           ? const SizedBox(
-          //               height: 218,
-          //             )
-          //           : index == 1
-          //               ? const MyAllComplaintInCount()
-          //               : const Text("Hello");
-          //       // : Expanded(child: provider.AdminIssuesListDataWidget());
-          //     }),
-          //
-          //
-          Stack(
+    return Stack(
             children: [
               ClipPath(
                 child: Container(
@@ -261,97 +225,6 @@ class AdminHomeScreen extends StatelessWidget {
               //
               //
             ],
-          ),
-          //
-        ],
-      ),
-      drawer: const AdminDrawer(),
-    );
-  }
-}
-
-class MyAllComplaintInCount extends StatelessWidget {
-  const MyAllComplaintInCount({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Column(
-            children: [
-              Text(
-                '50',
-                style: TextStyle(
-                  color: Colors.orange[500],
-                  fontSize: 18,
-                ),
-              ),
-              const Text(
-                'new',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-          Column(
-            children: const [
-              Text(
-                '60',
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 18,
-                ),
-              ),
-              Text(
-                'process',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-          Column(
-            children: const [
-              Text(
-                '48',
-                style: TextStyle(
-                  color: Colors.red,
-                  fontSize: 18,
-                ),
-              ),
-              Text(
-                'pending',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-          Column(
-            children: const [
-              Text(
-                '50560',
-                style: TextStyle(
-                  color: Colors.green,
-                  fontSize: 18,
-                ),
-              ),
-              Text(
-                'completed',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+          );
   }
 }

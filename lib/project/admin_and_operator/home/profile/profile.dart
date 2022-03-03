@@ -1,17 +1,17 @@
 import 'dart:ui';
 
-import 'package:complaintapp/project/admin_and_operator/admin/admin_clippers/admin_clippers.dart';
-import 'package:complaintapp/project/admin_and_operator/admin/profile/update/update_profile.dart';
+import 'package:complaintapp/project/admin_and_operator/admin/admin_drawer.dart';
+import 'package:complaintapp/project/admin_and_operator/home/top_ui_part/top_clippers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../admin_drawer.dart';
 import 'circular_image.dart';
+import 'update/update_profile.dart';
 FirebaseAuth _auth = FirebaseAuth.instance;
 
-class AdminProfile extends StatelessWidget {
+class Profile extends StatelessWidget {
   static const routeName = '/adminProfile';//adminProfile
-  const AdminProfile({Key? key}) : super(key: key);
+  const Profile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class AdminProfile extends StatelessWidget {
           ),
         ),
         actions: [
-          IconButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const UpdateAdminProfile())), icon: const Icon(Icons.edit))
+          IconButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const UpdateProfile())), icon: const Icon(Icons.edit))
         ],
       ),
       // backgroundColor: Colors.blueGrey[200],
